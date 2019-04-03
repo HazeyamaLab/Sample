@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Title</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- UIkit CSS -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/css/uikit.min.css" />
+<!-- jQuery is required -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- UIkit JS -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/js/uikit.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/js/uikit-icons.min.js">
+
+</script>
+<link rel="stylesheet" href="css/uikit.min.css" />
+<script src="js/uikit.min.js">
+</script>
+<script src="js/uikit-icons.min.js"></script>
+<!-- ナビゲーションバー -->
+<nav class="uk-navbar-container uk-margin" uk-navbar>
+	<!-- 左側 -->
+	<div class="uk-navbar-left">
+		<a class="uk-navbar-item uk-logo" href="/Sample/Login">SampleGradleApp </a>
+		<ul class="uk-navbar-nav">
+			<li><a href="/Sample/bbs"> <span class="uk-icon uk-margin-small-right"
+					uk-icon="icon: star"></span> BBS
+			</a></li>
+		</ul>
+	</div>
+	<!-- 右側 -->
+	<div class="uk-navbar-right">
+		<div class="uk-navbar-item">
+			<form action="/Sample/User/Show" method="get">
+				<input class="uk-input uk-form-width-small" type="text"
+					id = "search" name = "search" placeholder="検索">
+				<button class="uk-button uk-button-primary">Search</button>
+			</form>
+		</div>
+	</div>
+</nav>
+</head>
+<body>
+</body>
+</html>

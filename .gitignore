@@ -1,0 +1,46 @@
+# Java
+*.class
+*.jar
+*.ear
+
+# Eclipse
+.project
+.classpath
+.settings
+
+# Idea
+.idea
+*.iml
+*.iws
+*.ipr
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Gradle
+.gradle
+!gradle-wrapper.jar
+
+# Maven
+target
+
+# Build
+out
+build/*
+!libs
+bin
+
+# Other
+*.log
+*.swp
+*.bak
+
+# src
+src/main/resources/db/migration/*
+!*.md
+!V1__Initial_DB.sql
+/build/
+
+# docs
+docs/match
