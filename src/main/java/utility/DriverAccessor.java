@@ -8,6 +8,7 @@ public class DriverAccessor {
 
     //使用するDBの名前
     private final static String DRIVER_URL = "jdbc:mysql://localhost:3333/sample_gradle?useUnicode=true&characterEncoding=UTF-8&useSSL=false";
+    //private final static String DRIVER_URL = "jdbc:mysql://localhost:3306/sample_gradle?useUnicode=true&characterEncoding=UTF-8&useSSL=false";
 
     private final static String DRIVER_NAME = "com.mysql.jdbc.Driver";
 

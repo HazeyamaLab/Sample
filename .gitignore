@@ -28,7 +28,7 @@ target
 # Build
 out
 build/*
-!libs
+!/build/libs/Sample.war
 bin
 
 # Other
@@ -38,7 +38,7 @@ bin
 
 # src
 src/main/resources/db/migration/*
-!*.md
+!README.md
 !V1__Initial_DB.sql
 /build/
 
