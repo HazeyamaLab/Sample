@@ -1,0 +1,16 @@
+version: '2' #docker-composeのバージョンを指定
+services:
+  se18g1:
+    build: . #Dockerfileをビルド
+    ports:
+    - "5200:8080" #ポート5200番の開放
+
+    privileged: true
+    tty: true
+    environment:
+    command: /sbin/init
+
+networks:
+  default:
+    external:
+      name: onyx
