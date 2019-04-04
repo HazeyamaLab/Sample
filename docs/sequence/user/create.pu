@@ -14,7 +14,6 @@ hide footbox
 'アクター'
 actor User as user
 
-'オブジェクト'
 participant View as view
 participant CreateController as controller
 participant UserService as service

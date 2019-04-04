@@ -7,7 +7,7 @@
 #
 # ホスト: 127.0.0.1 (MySQL 5.7.25)
 # データベース: sample_gradle
-# 作成時刻: 2019-04-02 06:40:46 +0000
+# 作成時刻: 2019-04-04 03:52:36 +0000
 # ************************************************************
 
 
@@ -34,6 +34,17 @@ CREATE TABLE `bbs` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `bbs` WRITE;
+/*!40000 ALTER TABLE `bbs` DISABLE KEYS */;
+
+INSERT INTO `bbs` (`id`, `title`, `description`, `created_at`, `updated_at`)
+VALUES
+	(61,'test','BBSつくった','2019-04-02 21:19:47','2019-04-02 21:19:47'),
+	(62,'test','asdfghj\r\n','2019-04-02 21:33:57','2019-04-02 21:33:57'),
+	(63,'test','fgh','2019-04-02 21:39:49','2019-04-02 21:39:49');
+
+/*!40000 ALTER TABLE `bbs` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # テーブルのダンプ posts
@@ -53,6 +64,16 @@ CREATE TABLE `posts` (
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `posts` WRITE;
+/*!40000 ALTER TABLE `posts` DISABLE KEYS */;
+
+INSERT INTO `posts` (`id`, `bbs_id`, `user_id`, `title`, `body`, `created_at`)
+VALUES
+	(2138,63,3,'test','cvbn\r\n','2019-04-02 21:39:55'),
+	(2139,63,3,'test','w345ty','2019-04-03 00:17:47');
+
+/*!40000 ALTER TABLE `posts` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # テーブルのダンプ schema_version
@@ -111,10 +132,19 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `user_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(256) NOT NULL DEFAULT '',
-  `password` varchar(256) NOT NULL DEFAULT '',
+  `pass` varchar(256) NOT NULL DEFAULT '',
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+
+INSERT INTO `users` (`user_id`, `name`, `pass`)
+VALUES
+	(3,'keychi','keychi');
+
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 
