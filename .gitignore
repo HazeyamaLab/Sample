@@ -28,7 +28,7 @@ target
 # Build
 out
 build/*
-!/libs/Sample.war
+!Sample.war
 bin
 
 # Other
