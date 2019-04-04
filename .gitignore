@@ -27,8 +27,7 @@ target
 
 # Build
 out
-build/*
-!Sample.war
+build
 bin
 
 # Other
