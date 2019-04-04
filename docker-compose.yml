@@ -1,6 +1,6 @@
 version: '2' #docker-composeのバージョンを指定
 services:
-  sample_grale:
+  sample:
     build: . #Dockerfileをビルド
     ports:
     - "5200:8080" #ポート5200番の開放
