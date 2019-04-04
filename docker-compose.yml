@@ -7,7 +7,6 @@ services:
 
     privileged: true
     tty: true
-    environment:
     command: /sbin/init
 
 networks:
