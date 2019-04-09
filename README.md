@@ -14,25 +14,6 @@ jsp & サーブレットでGradleプロジェクトの テンプレ
 ### ローカルのURL
 [http://localhost:8080/Sample/](http://localhost:8080/Sample/)
 
-### Jenkins(ローカル)の設定
-1. #### Jenkinsのインストール(homebrew)
- - brewコマンドでインストールする.`brew install jenkins`
- - Jenkinsの起動は`brew services start jenkins`
- - 起動したらアクセス [http://localhost:8080/](http://localhost:8080/)
-2. #### Jenkinsの設定
- - Jenkinsを起動したらアカウントの設定をする
-3. #### ポート番号を変更  
-ローカルでJenkinsを起動するときに, プロジェクトを8080ポートで起動したいので違う番号(自分は51111)に変更する.
- - `cd /usr/local/Cellar/jenkins/2.156`で移動する.
- - 中に**homebrew.mxcl.jenkins.plist**があるはずなのでそれを編集する(なかったら探す).
- - viとかで開いて`<string>--httpPort=8080</string>` → `<string>--httpPort=51111</string>`に変更する.
- - Jenkinsの方でJenkinsの管理 > システムの管理 > Jenkinsの位置を下記のように書き換え保存(再起動したほうがいいかも)
-
- <img width="928" alt="2019-01-22 13 06 49" src="https://user-images.githubusercontent.com/38200453/51511922-a10c6980-1e46-11e9-83a3-3b1b800290ff.png">
-
-4. #### 色々なプラグイン導入
-あとで書く
-
 ### Gradleプロジェクトの作成手順
 
 1. #### Gradleプロジェクトの作成
@@ -47,10 +28,10 @@ Gradle > Gradleプロジェクトを選択しプロジェクト名を記入し�
  - 「動的WEBモジュール」の右側にあるランタイムタブで使用するランタイムにチェック入れて適応する.
 
 ### DB
-#### DockerでMysqlのコンテナを立ち上げる
+### DockerでMysqlのコンテナを立ち上げる
 + `cd mysql`で移動.
 + `docker-compose up -d`でコンテナを立ち上げる.
-+ `docker ps`で起動を確認する(portは3333番).
++ `docker ps`で起動を確認する(portは3399番).
 
 ### gradleでtomcatを起動
 + tomcatの起動時にwarの更新をしてtomcatを起動する
