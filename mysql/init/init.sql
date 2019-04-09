@@ -7,7 +7,7 @@
 #
 # ホスト: 127.0.0.1 (MySQL 5.7.25)
 # データベース: sample_gradle
-# 作成時刻: 2019-04-04 04:00:36 +0000
+# 作成時刻: 2019-04-09 04:04:54 +0000
 # ************************************************************
 
 
@@ -34,16 +34,36 @@ CREATE TABLE `bbs` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOCK TABLES `bbs` WRITE;
-/*!40000 ALTER TABLE `bbs` DISABLE KEYS */;
 
-INSERT INTO `bbs` (`id`, `title`, `description`, `created_at`, `updated_at`)
+
+# テーブルのダンプ flyway_schema_history
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `flyway_schema_history`;
+
+CREATE TABLE `flyway_schema_history` (
+  `installed_rank` int(11) NOT NULL,
+  `version` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `type` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `script` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
+  `checksum` int(11) DEFAULT NULL,
+  `installed_by` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `installed_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `execution_time` int(11) NOT NULL,
+  `success` tinyint(1) NOT NULL,
+  PRIMARY KEY (`installed_rank`),
+  KEY `flyway_schema_history_s_idx` (`success`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+LOCK TABLES `flyway_schema_history` WRITE;
+/*!40000 ALTER TABLE `flyway_schema_history` DISABLE KEYS */;
+
+INSERT INTO `flyway_schema_history` (`installed_rank`, `version`, `description`, `type`, `script`, `checksum`, `installed_by`, `installed_on`, `execution_time`, `success`)
 VALUES
-	(61,'test','BBSつくった','2019-04-02 21:19:47','2019-04-02 21:19:47'),
-	(62,'test','asdfghj\r\n','2019-04-02 21:33:57','2019-04-02 21:33:57'),
-	(63,'test','fgh','2019-04-02 21:39:49','2019-04-02 21:39:49');
+	(1,'1','Initial DB','SQL','V1__Initial_DB.sql',-781702448,'root','2019-04-09 02:51:01',21,1);
 
-/*!40000 ALTER TABLE `bbs` ENABLE KEYS */;
+/*!40000 ALTER TABLE `flyway_schema_history` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -64,16 +84,6 @@ CREATE TABLE `posts` (
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOCK TABLES `posts` WRITE;
-/*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-
-INSERT INTO `posts` (`id`, `bbs_id`, `user_id`, `title`, `body`, `created_at`)
-VALUES
-	(2138,63,3,'test','cvbn\r\n','2019-04-02 21:39:55'),
-	(2139,63,3,'test','w345ty','2019-04-03 00:17:47');
-
-/*!40000 ALTER TABLE `posts` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # テーブルのダンプ schema_version
@@ -101,8 +111,7 @@ LOCK TABLES `schema_version` WRITE;
 
 INSERT INTO `schema_version` (`installed_rank`, `version`, `description`, `type`, `script`, `checksum`, `installed_by`, `installed_on`, `execution_time`, `success`)
 VALUES
-	(1,'1','Initial DB','BASELINE','<< Flyway Baseline >>',538576452,'root','2019-02-17 09:42:51',0,1),
-	(2,'1.11','insert DB','SQL','V1.11__insert_DB.sql',-98424692,'root','2019-02-17 10:29:02',30,1);
+	(1,'1','Initial DB','BASELINE','<< Flyway Baseline >>',538576452,'root','2019-02-17 09:42:51',0,1);
 
 /*!40000 ALTER TABLE `schema_version` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -136,15 +145,6 @@ CREATE TABLE `users` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-
-INSERT INTO `users` (`user_id`, `name`, `pass`)
-VALUES
-	(3,'keychi','keychi');
-
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 

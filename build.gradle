@@ -26,7 +26,7 @@ plugins {
 }
 
 flyway {
-    url = 'jdbc:mysql://localhost:3333/sample_gradle?autoReconnect=true&useSSL=false'
+    url = 'jdbc:mysql://localhost:3399/sample_gradle?autoReconnect=true&useSSL=false'
     user = 'root'
     password = 'root'
 }
@@ -122,86 +122,79 @@ findbugs {
     ignoreFailures = true
 }
 
-Closure callTask
-callTask = { Task t ->
-    t.taskDependencies.getDependencies().each { callTask it }
-    if (!t.didWork) {
-        println ":$t.name"
-        t.execute()
-    }
-}
 
-task hello doLast {
-    println "Hello Jenkins"
-}
-
-task loadfile(dependsOn: hello) doLast { //helloに依存して実行
-    def text = file('./docs/test.md').text
-    text.eachLine { line, no ->
-        println "$no :${line}"
-    }
-    def withNumbers = text.findAll { String line ->
-        (line ==~ /^#.*/)
-    }
-    println text
-}
-
-task getLog doLast {
+task getLogAll doLast {
     def date = new Date()
     def format = new SimpleDateFormat('yyyy/MM/dd HH:mm:ss.SSS')
     def dateTime = format.format(date)
 
-    def text = file("${testReport}/dao.UsersDaoTest.html").text
-    def testNames = []
-    def durations = []
-    def results = []
-    int order = 0
-    text.eachLine { line, no ->
-        if (line.contains("<td class=") && order == 0) {
-            String str = "${line}"
-            int index = str.indexOf('>');
-            int out = str.indexOf('</td>');
-            testNames.add("${str.substring(index + 1, out)}")
-            order = 1
-            if (order == 1) return
-        }
-        if (line.contains("<td class=") && order == 1) {
-            String str = "${line}"
-            int index = str.indexOf('>');
-            int out = str.indexOf('</td>');
-            durations.add("${str.substring(index + 1, out)}")
-            order = 2
-            if (order == 2) return
-        }
-        if (line.contains("<td class=") && order == 2) {
-            String str = "${line}"
-            int index = str.indexOf('>');
-            int out = str.indexOf('</td>');
-            results.add("${str.substring(index + 1, out)}")
-            order = 0
-            if (order == 0) return
-        }
-    }
 
-    def sort = []
-    FileTree tree = fileTree("${dbMigrate}")
-    tree.each {
-        def line = it.name
-        int index = line.indexOf("V");
-        int out = line.indexOf('__');
-        sort.add("${Integer.decode(line.substring(index + 1, out))}")
+    File dir = new File("${testReport}")
+    File[] files = dir.listFiles()
+    for (int count = 0; count < files.length; count++) {
+        File fileName = files[count]
+
+        def name = fileName.getName()
+        def text = file("${testReport}/"+name).text
+        def testNames = []
+        def durations = []
+        def results = []
+        int order = 0
+        text.eachLine { line, no ->
+            if (line.contains("<td class=") && order == 0) {
+                String str = "${line}"
+                int index = str.indexOf('>')
+                int out = str.indexOf('</td>')
+                testNames.add("${str.substring(index + 1, out)}")
+                order = 1
+                if (order == 1) return
+            }
+            if (line.contains("<td class=") && order == 1) {
+                String str = "${line}"
+                int index = str.indexOf('>')
+                int out = str.indexOf('</td>')
+                durations.add("${str.substring(index + 1, out)}")
+                order = 2
+                if (order == 2) return
+            }
+            if (line.contains("<td class=") && order == 2) {
+                String str = "${line}"
+                int index = str.indexOf('>')
+                int out = str.indexOf('</td>')
+                results.add("${str.substring(index + 1, out)}")
+                order = 0
+                if (order == 0) return
+            }
+        }
+
+        def sort = []
+        FileTree tree = fileTree("${dbMigrate}")
+        tree.each {
+            def line = it.name
+            int index = line.indexOf('V')
+            int out = line.indexOf('__')
+            sort.add("${Integer.decode(line.substring(index + 1, out))}")
+            println  sort
+        }
+        int nextMax = 0
+        int max = 0
+        for (String num : sort ){
+            if (max < Integer.decode(num)) {
+                max = Integer.decode(num)
+            }
+        }
+        nextMax = max + 1
+        File newFile = file("${dbMigrate}/V${nextMax}__insert_DB.sql")
+        newFile.write('', 'UTF-8')
+        FileWriter textFile = new FileWriter(newFile)
+        PrintWriter pw = new PrintWriter(new BufferedWriter(textFile))
+        for (int i = 0; i < testNames.size(); i++) {
+            pw.print("INSERT INTO test_reports (test_name, duration, result, created_at) VALUES (")
+            pw.print("'${testNames[i]}', ")
+            pw.print("'${durations[i]}', ")
+            pw.print("'${results[i]}', ")
+            pw.println("'${dateTime}');")
+        }
+        pw.close()
     }
-    int nextMax = Integer.decode(sort.max()) + 1
-    File newFile = file("${dbMigrate}/V${nextMax}__insert_DB.sql")
-    newFile.write('', 'UTF-8')
-    FileWriter textFile = new FileWriter(newFile);
-    PrintWriter pw = new PrintWriter(new BufferedWriter(textFile));
-    for (int i = 0; i < testNames.size(); i++) {
-        pw.print("INSERT INTO test_reports (test_name, duration, result, created_at) VALUES (");
-        pw.print("'${testNames[i]}', ");
-        pw.print("'${durations[i]}', ");
-        pw.print("'${results[i]}', ");
-        pw.println("'${dateTime}');");
-    }
-    pw.close()
 }
