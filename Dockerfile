@@ -7,4 +7,5 @@ COPY . ${APP_PATH}
 #RUN ./gradlew clean build
 
 #ENTRYPOINT java -jar ${APP_PATH}/build/libs/Sample.war
+ENTRYPOINT ./gradlew sJ
 ENTRYPOINT ./gradlew tRW
