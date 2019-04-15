@@ -141,6 +141,22 @@ task buildDocker(type: Docker, dependsOn: build) {
     }
 }
 
+task sourcesJar(type: Jar){
+    //タスクの設定
+    baseName = "my-library"
+    appendix = "sources"
+    destinationDir = file("build")
+
+    //アーカイブの構成
+    from("src/main/java"){
+        include "**/*.java", "**/*.groovy", "**/*.xml"
+    }
+    //マニフェストファイルの設定
+    manifest{
+        attributes("Built-By": "Gradle", "Implementation-Version": project.version)
+    }
+}
+
 
 task getLogAll doLast {
     def date = new Date()
