@@ -6,4 +6,5 @@ RUN mkdir -p ${APP_PATH}
 COPY . ${APP_PATH}
 #RUN ./gradlew clean build
 
-ENTRYPOINT java -jar ${APP_PATH}/build/libs/Sample.war
+#ENTRYPOINT java -jar ${APP_PATH}/build/libs/Sample.war
+ENTRYPOINT ./gradlew tRW

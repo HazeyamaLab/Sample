@@ -130,17 +130,6 @@ findbugs {
     ignoreFailures = true
 }
 
-task buildDocker(type: Docker, dependsOn: build) {
-    applicationName = jar.baseName
-    dockerfile = file('Dockerfile')
-    doFirst {
-        copy {
-            from jar
-            into "${stageDir}/target"
-        }
-    }
-}
-
 task sourcesJar(type: Jar){
     //タスクの設定
     baseName = "my-library"
