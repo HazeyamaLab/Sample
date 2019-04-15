@@ -1,5 +1,8 @@
 FROM openjdk:jdk-alpine
-COPY ./build/libs/Sample.war /opt/tomcat/webapps/
-RUN source /etc/profile
 
-CMD ["systemctl", "start", "tomcat"]
+ENV APP_PATH /usr/local/Sample
+WORKDIR ${APP_PATH}
+RUN mkdir -p ${APP_PATH}
+COPY . ${APP_PATH}
+
+ENTRYPOINT ./gradlew tRW
