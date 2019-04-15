@@ -1,6 +1,6 @@
 version: '2'
 services:
-    revel_db:
+    Sample_db:
         image: mysql:5.7
         ports:
             - "3399:3306"
