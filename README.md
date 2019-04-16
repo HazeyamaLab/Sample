@@ -3,12 +3,10 @@ jsp & サーブレットでGradleプロジェクトの テンプレ
 
 ### 開発環境
 + java  1.8.0
-+ Gradle 4.10.2
++ Gradle 5.2.1
 + Groovy 2.4.15
-+ Ant Apache Ant(TM) version 1.9.11 compiled on March 23 2018
-+ Apach Tomcat 9.0
++ Apach Tomcat 9.0  
 + UIkit 3.0.2
-+ Jenkins 2.156
 + mysql 5.7.0
 
 ### ローカルのURL
@@ -51,4 +49,12 @@ Gradle > Gradleプロジェクトを選択しプロジェクト名を記入し�
 
 下記にDB格納後を示す. 
 <img width="789" alt="スクリーンショット 2019-04-09 13 13 18" src="https://user-images.githubusercontent.com/38200453/55772922-53a8ab80-5ac9-11e9-8150-2fbd217590c2.png">
+
+### buildScan
+
+`gradle build --scan`を実行
+
+- https://scans.gradle.com/s/yjoulcylpwc3k/ にアクセス  
+- 最初のアクセス時にはメールの認証が必要
+
 
