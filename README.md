@@ -52,9 +52,11 @@ Gradle > Gradleプロジェクトを選択しプロジェクト名を記入し�
 
 ### buildScan
 
-`gradle build --scan`を実行
+`./gradlew build --scan`を実行
 
 - https://scans.gradle.com/s/yjoulcylpwc3k/ にアクセス  
 - 最初のアクセス時にはメールの認証が必要
 
+公式ドキュメント  
+https://docs.gradle.com/build-scan-plugin/
 
