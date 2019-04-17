@@ -26,11 +26,6 @@ plugins {
     id "org.flywaydb.flyway" version "5.2.4"
 }
 
-buildScan {
-    termsOfServiceUrl = 'https://gradle.com/terms-of-service'
-    termsOfServiceAgree = 'yes'
-}
-
 flyway {
     url = 'jdbc:mysql://localhost:3399/sample_gradle?autoReconnect=true&useSSL=false'
     user = 'root'
@@ -128,6 +123,14 @@ task sourcesJar(type: Jar){
         attributes("Built-By": "Gradle", "Implementation-Version": project.version)
     }
 }
+
+if (hasProperty("buildScan")) {
+    buildScan {
+        licenseAgreementUrl = 'https://gradle.com/terms-of-service'
+        licenseAgree = 'yes'
+    }
+}
+
 
 test {
     testLogging.showStandardStreams = true
