@@ -1,5 +1,5 @@
 ### 目的
-jsp & サーブレットでGradleプロジェクトの テンプレ
+jsp & サーブレットでGradleプロジェクトのテンプレ
 
 ### 必ずすること
 docs配下に  
@@ -36,30 +36,34 @@ Gradle > Gradleプロジェクトを選択しプロジェクト名を記入し�
 + `docker ps`で起動を確認する(portは3399番).
 
 ### gradleでtomcatを起動
-+ tomcatの起動時にwarの更新をしてtomcatを起動する
++ tomcatの起動時にwarの更新をしてtomcatを起動する.
 
 `./gradlew tRW`
 
-### gradleのテスト結果をDBに格納する手順
+### gradleのビルド & テスト結果をDBに格納する手順
 
-+ `gradle flywayInfo`でマイグレーションのの状態を確認する.(stateの状態を確認)
-+ `gradle test`でテストの実行をする
++ `gradle flywayInfo`でマイグレーションの状態を確認する(stateの状態を確認).
++ `./gradlew build --scan`ビルドをする.
 + `gradle getLogAll`でテスト結果をマイグレーションファイルにする.
-+ `gradle flywayInfo`でマイグレーションファイルが増えているのかを確認する(state:Pending)
++ `gradle flywayInfo`でマイグレーションファイルが増えているのかを確認する(state:Pending).
 + `gradle flywayMigrate`でマイグレートする.
-+ `gradle flywayInfo`でマイグレーションのの状態を確認する.(state:Success)
-+ DBに格納されていることを確認する
++ `gradle flywayInfo`でマイグレーションの状態を確認する(state:Success).
++ DBに格納されていることを確認する.
+ 
+
+1コマンドで行う方法  
+`./gradlew build --scan gLA flywayMigrate`
+
 
 下記にDB格納後を示す. 
 <img width="789" alt="スクリーンショット 2019-04-09 13 13 18" src="https://user-images.githubusercontent.com/38200453/55772922-53a8ab80-5ac9-11e9-8150-2fbd217590c2.png">
 
 ### buildScan
 
-`./gradlew build --scan`を実行
+`./gradlew build --scan`を実行する.
 
-- 実行時に出てきたURLにアクセスする  
-- 最初のアクセス時にはメールの認証が必要
+- 実行時に出てきたURLにアクセスする.  
+- 最初のアクセス時にはメールの認証が必要.  
 
 公式ドキュメント  
 https://docs.gradle.com/build-scan-plugin/
-
