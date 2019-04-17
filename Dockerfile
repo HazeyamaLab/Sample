@@ -9,5 +9,7 @@ COPY . ${APP_PATH}
 RUN mkdir ./docs/match
 RUN touch ./docs/match/match.txt
 RUN ./gradlew build --scan
+RUN ./gradlew gLA
+RUN ./gradlew flywayMigrate
 
 ENTRYPOINT ./gradlew tRW
