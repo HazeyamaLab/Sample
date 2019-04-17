@@ -1,6 +1,10 @@
 ### 目的
 jsp & サーブレットでGradleプロジェクトの テンプレ
 
+### 必ずすること
+docs配下に  
+`docs/match/macth.text`を作成する(中身は空でOK).
+
 ### 開発環境
 + java  1.8.0
 + Gradle 5.2.1
@@ -35,7 +39,6 @@ Gradle > Gradleプロジェクトを選択しプロジェクト名を記入し�
 + tomcatの起動時にwarの更新をしてtomcatを起動する
 
 `./gradlew tRW`
-
 
 ### gradleのテスト結果をDBに格納する手順
 
