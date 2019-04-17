@@ -7,8 +7,7 @@ import java.sql.SQLException;
 public class DriverAccessor {
 
     //使用するDBの名前
-    //private final static String DRIVER_URL = "jdbc:mysql://localhost:3399/sample_gradle?useUnicode=true&characterEncoding=UTF-8&useSSL=false";
-    private final static String DRIVER_URL = "jdbc:mysql://sample_db:3306/sample_gradle?useUnicode=true&characterEncoding=UTF-8&useSSL=false";
+    //private final static String  DRIVER_URL = "jdbc:mysql://sample_db:3306/sample_gradle?useUnicode=true&characterEncoding=UTF-8&useSSL=false";
 
     private final static String DRIVER_NAME = "com.mysql.jdbc.Driver";
 
@@ -18,6 +17,13 @@ public class DriverAccessor {
     private final static String PASSWORD = "root";
 
     public Connection createConnection() {
+        String DRIVER_URL = System.getenv("DB_PATH");
+        if(DRIVER_URL != null){
+            System.out.println("リモート");
+        }else{
+            DRIVER_URL = "jdbc:mysql://localhost:3399/sample_gradle?useUnicode=true&characterEncoding=UTF-8&useSSL=false";
+            System.out.println("ローカル");
+        }
         try {
             Class.forName(DRIVER_NAME);
             Connection con = DriverManager.getConnection(DRIVER_URL, USER_NAME, PASSWORD);

@@ -26,17 +26,18 @@ plugins {
     id "org.flywaydb.flyway" version "5.2.4"
 }
 
-flyway {
-    url = 'jdbc:mysql://localhost:3399/sample_gradle?autoReconnect=true&useSSL=false'
-    user = 'root'
-    password = 'root'
-}
-
 ext {
     tomcatVersion = '9.0.10'
     mySQLVersion = '5.1.47'
     testReport = './build/reports/tests/test/classes'
     dbMigrate = './src/main/resources/db/migration'
+    DB_PATH = 'jdbc:mysql://localhost:3399/sample_gradle?autoReconnect=true&useSSL=false'
+}
+
+flyway {
+    url = "${DB_PATH}"
+    user = 'root'
+    password = 'root'
 }
 
 // apply plugin: 'application'//Mainメソッドを持つクラスを実行するために必要
