@@ -53,13 +53,6 @@ apply plugin: 'eclipse'
 apply plugin: 'com.bmuschko.tomcat'
 apply plugin: 'org.kordamp.markdown.convert'
 apply plugin: 'org.flywaydb.flyway'
-apply plugin: 'docker'
-
-//静的解析コードのプラグイン
-//apply plugin: 'checkstyle'
-apply plugin: 'findbugs'
-apply plugin: 'jacoco'
-
 
 sourceSets {
     sourceCompatibility = 1.8
@@ -113,12 +106,6 @@ dependencies {
 
 }
 
-jar {
-    baseName = 'sample'
-    archiveName = "${baseName}.jar"
-}
-
-
 tomcat() {
     httpProtocol = 'org.apache.coyote.http11.Http11Nio2Protocol'
     ajpProtocol = 'org.apache.coyote.ajp.AjpNio2Protocol'
@@ -129,28 +116,6 @@ tomcat() {
 test {
     testLogging.showStandardStreams = true
 }
-
-findbugs {
-    reportLevel = 'high'
-    ignoreFailures = true
-}
-
-task sourcesJar(type: Jar){
-    //タスクの設定
-    baseName = "my-library"
-    appendix = "sources"
-    destinationDir = file("build")
-
-    //アーカイブの構成
-    from("src/main/java"){
-        include "**/*.java", "**/*.groovy", "**/*.xml"
-    }
-    //マニフェストファイルの設定
-    manifest{
-        attributes("Built-By": "Gradle", "Implementation-Version": project.version)
-    }
-}
-
 
 task getLogAll doLast {
     def date = new Date()
