@@ -27,8 +27,7 @@ plugins {
 }
 
 flyway {
-    //url = 'jdbc:mysql://localhost:3399/sample_gradle?autoReconnect=true&useSSL=false'
-    url = 'jdbc:mysql://sample_db:3306/sample_gradle?useUnicode=true&characterEncoding=UTF-8&useSSL=false'
+    url = 'jdbc:mysql://localhost:3399/sample_gradle?autoReconnect=true&useSSL=false'
     user = 'root'
     password = 'root'
 }
