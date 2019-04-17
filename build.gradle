@@ -26,11 +26,6 @@ plugins {
     id "org.flywaydb.flyway" version "5.2.4"
 }
 
-jar {
-    baseName = 'sample'
-    archiveName = "${baseName}.jar"
-}
-
 buildScan {
     termsOfServiceUrl = 'https://gradle.com/terms-of-service'
     termsOfServiceAgree = 'yes'
