@@ -54,7 +54,7 @@ Gradle > Gradleプロジェクトを選択しプロジェクト名を記入し�
 
 `./gradlew build --scan`を実行
 
-- https://scans.gradle.com/s/yjoulcylpwc3k/ にアクセス  
+- 実行時に出てきたURLにアクセスする  
 - 最初のアクセス時にはメールの認証が必要
 
 公式ドキュメント  
