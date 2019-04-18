@@ -1,18 +1,19 @@
 version: '2'
-services:
-    sample_db:
-        image: mysql:5.7
-        ports:
-            - "3399:3306"
-        command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
-        environment:
-          MYSQL_DATABASE: sample_gradle
-          MYSQL_USER: gradle
-          MYSQL_PASSWORD: gradle
-          MYSQL_ROOT_PASSWORD: root
 
-        volumes:
-            -  "./init:/docker-entrypoint-initdb.d"
+services:
+  sample_db:
+    image: mysql:5.7
+    ports:
+    - "3399:3306"
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    environment:
+      MYSQL_DATABASE: sample_gradle
+      MYSQL_USER: gradle
+      MYSQL_PASSWORD: gradle
+      MYSQL_ROOT_PASSWORD: root
+
+    volumes:
+    - "./init:/docker-entrypoint-initdb.d"
 
 networks:
   default:
