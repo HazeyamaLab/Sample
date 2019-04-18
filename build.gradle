@@ -36,8 +36,8 @@ ext {
 flyway {
     def path = System.getenv()DB_PATH
     if(path){
-        //url = 'jdbc:mysql://sample_db:3306/sample_gradle?autoReconnect=true&useSSL=false'
-        url = 'jdbc:mysql://localhost:3399/sample_gradle?autoReconnect=true&useSSL=false'
+        url = 'jdbc:mysql://sample_db:3306/sample_gradle?autoReconnect=true&useSSL=false'
+        //url = 'jdbc:mysql://localhost:3399/sample_gradle?autoReconnect=true&useSSL=false'
     }else {
         url = 'jdbc:mysql://localhost:3399/sample_gradle?autoReconnect=true&useSSL=false'
     }
