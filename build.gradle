@@ -16,9 +16,7 @@ buildscript {
     }
     dependencies {
         classpath group: 'com.bmuschko', name: 'gradle-tomcat-plugin', version: '2.5'
-        classpath 'org.kordamp:markdown-gradle-plugin:1.2.0'
         classpath "mysql:mysql-connector-java:5.1.47"
-        classpath "se.transmode.gradle:gradle-docker:1.2"
     }
 }
 
