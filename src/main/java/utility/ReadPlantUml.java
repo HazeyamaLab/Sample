@@ -12,14 +12,13 @@ import java.util.regex.Pattern;
 public class ReadPlantUml {
 
     public List<String> getObjects(String filePath) {
-
         List<String> results = new ArrayList<String>();
         try {
-            //Fileクラスに読み込むファイルを指定する
+            // Fileクラスに読み込むファイルを指定する
             File file = new File(filePath);
-            //ファイルが存在するか確認
+            // ファイルが存在するか確認
             if (file.exists()) {
-                //ファイルの読み込み
+                // ファイルの読み込み
                 FileReader filereader = new FileReader(file);
                 BufferedReader bufferedReader = new BufferedReader(filereader);
                 String line;
@@ -27,10 +26,10 @@ public class ReadPlantUml {
                     Pattern p = Pattern.compile("participant");
                     Matcher m = p.matcher(line);
                     if (m.find()) {
-                       results.add(line);
+                        results.add(line);
                     }
                 }
-                //ファイルを閉じる
+                // ファイルを閉じる
                 bufferedReader.close();
                 filereader.close();
             } else {
@@ -45,13 +44,12 @@ public class ReadPlantUml {
     public List<String> getMethods(String filePath) {
 
         List<String> results = new ArrayList<String>();
-        ;
         try {
-            //Fileクラスに読み込むファイルを指定する
+            // Fileクラスに読み込むファイルを指定する
             File file = new File(filePath);
-            //ファイルが存在するか確認
+            // ファイルが存在するか確認
             if (file.exists()) {
-                //ファイルの読み込み
+                // ファイルの読み込み
                 FileReader filereader = new FileReader(file);
                 BufferedReader bufferedReader = new BufferedReader(filereader);
                 String line;
@@ -66,7 +64,7 @@ public class ReadPlantUml {
                         }
                     }
                 }
-                //ファイルを閉じる
+                // ファイルを閉じる
                 bufferedReader.close();
                 filereader.close();
             } else {
@@ -82,11 +80,11 @@ public class ReadPlantUml {
 
         String result = null;
         try {
-            //Fileクラスに読み込むファイルを指定する
+            // Fileクラスに読み込むファイルを指定する
             File file = new File(filePath);
-            //ファイルが存在するか確認
+            // ファイルが存在するか確認
             if (file.exists()) {
-                //ファイルの読み込み
+                // ファイルの読み込み
                 FileReader filereader = new FileReader(file);
                 BufferedReader bufferedReader = new BufferedReader(filereader);
                 String line;
@@ -97,7 +95,7 @@ public class ReadPlantUml {
                         result = line;
                     }
                 }
-                //ファイルを閉じる
+                // ファイルを閉じる
                 bufferedReader.close();
                 filereader.close();
             } else {
@@ -109,8 +107,36 @@ public class ReadPlantUml {
         return result;
     }
 
+    public String readFile(String filePath, String searchNames) {
+        String results = null;
+        try {
+            // Fileクラスに読み込むファイルを指定する
+            File file = new File(filePath);
+            // ファイルが存在するか確認
+            if (file.exists()) {
+                // ファイルの読み込み
+                FileReader filereader = new FileReader(file);
+                BufferedReader bufferedReader = new BufferedReader(filereader);
+                int count = 0;
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    Pattern p = Pattern.compile(searchNames);
+                    Matcher m = p.matcher(line);
+                    if (m.find()) {
+                        results = line;
+                        count = count + 1;
+                        break;
+                    }
+                }
+                // ファイルを閉じる
+                bufferedReader.close();
+                filereader.close();
+            } else {
+                System.out.print("ファイルは存在しません");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
 }
-
-
-
-

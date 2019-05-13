@@ -10,7 +10,7 @@ COPY . ${APP_PATH}
 RUN mkdir ./docs/match
 RUN touch ./docs/match/match.txt
 RUN ./gradlew wrapper
-# RUN ./gradlew build
-RUN ./gradlew build --scan
+RUN ./gradlew build
+# RUN ./gradlew build --scan
 RUN ./gradlew gLA
 ENTRYPOINT ./gradlew tRW

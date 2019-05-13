@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      
+      {
+        "type": "java",
+        "name": "Debug (Launch) with Arguments Prompt",
+        "request": "launch",
+        "cwd": "${workspaceFolder}",
+        "console": "internalConsole",
+        "stopOnEntry": false,
+        "mainClass": "entry.mainApp",
+        "args": "--hoge-arg tititata",
+        "debugServer": 4711
+      },
+    ]
+  }

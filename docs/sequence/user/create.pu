@@ -14,26 +14,26 @@ hide footbox
 'アクター'
 actor User as user
 
-participant View as view
+participant create.jsp as view
 participant CreateController as controller
 participant UserService as service
 participant UserDao as dao
 database sample_gradle as users
 
-'遷移'
+'繊維'
 user -> view :
 
 activate view
 view -> controller :doPost(String name, String pass)
 
 activate controller
-controller -> service : create(User user)
+controller -> service :create(User user)
 
 activate service
 service -> dao :create(User user)
 
 activate dao
-dao -> users : 登録
+dao -> users :登録
 
 activate users
 users -> dao :

@@ -49,13 +49,13 @@ Gradle > Gradleプロジェクトを選択しプロジェクト名を記入し�
 + `gradle flywayMigrate`でマイグレートする.
 + `gradle flywayInfo`でマイグレーションの状態を確認する(state:Success).
 + DBに格納されていることを確認する.
- 
+
 
 1コマンドで行う方法  
 `./gradlew build --scan gLA flywayMigrate`
 
 
-下記にDB格納後を示す. 
+下記にDB格納後を示す.
 <img width="789" alt="スクリーンショット 2019-04-09 13 13 18" src="https://user-images.githubusercontent.com/38200453/55772922-53a8ab80-5ac9-11e9-8150-2fbd217590c2.png">
 
 ### buildScan

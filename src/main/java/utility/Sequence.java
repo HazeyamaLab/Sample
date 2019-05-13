@@ -7,7 +7,7 @@ public class Sequence {
     public String searchDir(String object) {
         //返り値の初期化
         String dirc = null;
-        String path = new File(".").getAbsoluteFile().getParent() + "/src/main/java";;
+        String path = new File(".").getAbsoluteFile().getParent() + "/src/main/java/service" + object;
         File dir = new File(path);
 
         //フルパスで取得

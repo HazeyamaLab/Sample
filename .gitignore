@@ -43,3 +43,5 @@ src/main/resources/db/migration/*
 
 # docs
 docs/match
+
+url.txt
