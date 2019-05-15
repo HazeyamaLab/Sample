@@ -15,29 +15,30 @@ hide footbox
 actor User as user
 
 participant create.jsp as view
-participant CreateController as controller
+participant index.jsp as view2
+participant Create as controller
 participant UserService as service
-participant UserDao as dao
+participant UsersDao as dao
 database sample_gradle as users
 
 '繊維'
-user -> view :
+user -> view
 
 activate view
-view -> controller :doPost(String name, String pass)
+view -> controller :post(name, pass)
+deactivate view
 
 activate controller
-controller -> service :create(User user)
+controller -> service :create(user)
 
 activate service
-service -> dao :create(User user)
+service -> dao :create(user, connection)
 
 activate dao
 dao -> users :登録
 
 activate users
-users -> dao :
-
+users -> dao
 deactivate users
 
 dao -> service
@@ -46,7 +47,11 @@ deactivate dao
 service -> controller
 deactivate service
 
-controller ->  view
+controller ->  view2
 deactivate controller
+
+activate view2
+view2 -> user
+deactivate view2
 
 @enduml
