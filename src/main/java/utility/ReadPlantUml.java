@@ -229,9 +229,9 @@ public class ReadPlantUml {
         return anotation;
     }
 
-    public String searchJavaonJsp(String name, String filePath, String method, String checkAnotation) {
+    public String[] searchJavaonJsp(String name, String filePath, String method, String checkAnotation) {
         // 返り値の初期化(get or postを呼んでいる行)
-        String judge = null;
+        String[] judge = new String[2];
         String path = "src/main/java/" + filePath;
         File dir = new File(path);
         String javaName = name + ".java";
@@ -248,7 +248,7 @@ public class ReadPlantUml {
                     if (javaName.equals(file[file.length - 1])) {
                         String readPath = path + "/" + file[file.length - 1];
                         System.out.println(readPath);
-                        writeJavaonJsp(readPath, "docs/match/sequence.txt", method, checkAnotation);
+                        judge = writeJavaonJsp(readPath, "docs/match/sequence.txt", method, checkAnotation);
                     }
                 }
                 // ディレクトリの場合
@@ -262,12 +262,10 @@ public class ReadPlantUml {
         return judge;
     }
 
-    public void writeJavaonJsp(String filePath, String textPath, String searchName, String checkAnotation) {
-        // anotationが存在するのかを判定する
-        String judge = null;
-
-        // メソッドが存在するのかを判断する
-        String methodJudge = null;
+    public String[] writeJavaonJsp(String filePath, String textPath, String searchName, String checkAnotation) {
+        // anotationが存在するのかを判定する[0]
+        // メソッドが存在するのかを判断する[1]
+        String[] judge = new String[2];
         // importのい部分を取り除いてClassの部分のみを取得する(public classのあとを取得する)
         // 0の時はまだpublic classを見つけていない / 1の時はpublic classを見つけている → txtに書き込む
         int getinClass = 0;
@@ -296,10 +294,10 @@ public class ReadPlantUml {
                     if (line.contains(check)) { // jspから呼ばれているのでその呼び出し先のアノテーションがあっているかの確認 → ある時は judgeにOKが代入される
                         String ano = line.substring(check.length(), line.length() - 2);
                         if (line.contains(ano)) {
-                            judge = "アノテーションOK";
+                            judge[0] = "アノテーションOK";
                         }
                     } else if (line.contains(searchName)) { // methodがあるか無いかの確認
-                        methodJudge = "Methodあり";
+                        judge[1] = "Methodあり";
                     }
                 }
                 addPw.close();
@@ -312,15 +310,18 @@ public class ReadPlantUml {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(judge);
-        System.out.println(methodJudge);
+        System.out.println(judge[0]);
+        System.out.println(judge[1]);
+        return judge;
     }
 
     public String searchJava(String name, String filePath, String method) {
+
+        // 返り値 : メソッド
+        String judge = "null";
         String path = "src/main/java/" + filePath;
         File dir = new File(path);
         String javaName = name + ".java";
-        System.out.println(javaName);
 
         // listFilesメソッドを使用して一覧を取得する
         File[] list = dir.listFiles();
@@ -344,10 +345,10 @@ public class ReadPlantUml {
         } else {
             System.out.println("null");
         }
-        return null;
+        return judge;
     }
 
-    public void writeJava(String filePath, String textPath, String searchName) {
+    public String writeJava(String filePath, String textPath, String searchName) {
         // メソッドが存在するかを判定する
         String methodJudge = null;
         // importのい部分を取り除いてClassの部分のみを取得する(public classのあとを取得する)
@@ -380,9 +381,9 @@ public class ReadPlantUml {
                         }
                     }
                 }
-                if(searchName.equals("メソッド_引数なし")){
-                    methodJudge = "引数なし"; 
-                }else if(searchName.equals("DBアクセス")){
+                if (searchName.equals("メソッド_引数なし")) {
+                    methodJudge = "引数なし";
+                } else if (searchName.equals("DBアクセス")) {
                     methodJudge = "DBアクセス";
                 }
                 addPw.close();
@@ -395,6 +396,92 @@ public class ReadPlantUml {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("指定のクラスに特定のメソッド："+methodJudge);
+        System.out.println("指定のクラスに特定のメソッド：" + methodJudge);
+        return methodJudge;
+    }
+
+    public String searchDaoJava(String name, String filePath, String method) {
+
+        // 返り値 : メソッド
+        String judge = "null";
+        String path = "src/main/java/" + filePath;
+        File dir = new File(path);
+        String javaName = name + ".java";
+
+        // listFilesメソッドを使用して一覧を取得する
+        File[] list = dir.listFiles();
+
+        if (list != null) {
+            for (int i = 0; i < list.length; i++) {
+                // ファイルの場合
+                if (list[i].isFile()) {
+                    System.out.println("ファイル : " + list[i].toString());
+                    String[] file = list[i].toString().split("/", 0);
+                    if (javaName.equals(file[file.length - 1])) {
+                        String readPath = path + "/" + file[file.length - 1];
+                        writeJava(readPath, "docs/match/sequence.txt", method);
+                    }
+                }
+                // ディレクトリの場合
+                else if (list[i].isDirectory()) {
+                    System.out.println("ディレクトリです : " + list[i].toString());
+                }
+            }
+        } else {
+            System.out.println("null");
+        }
+        return judge;
+    }
+
+    public String writeDaoJava(String filePath, String textPath, String searchName) {
+        // メソッドが存在するかを判定する
+        String methodJudge = null;
+        // importのい部分を取り除いてClassの部分のみを取得する(public classのあとを取得する)
+        // 0の時はまだpublic classを見つけていない / 1の時はpublic classを見つけている → txtに書き込む
+        int getinClass = 0;
+
+        try {
+            FileWriter textFile = new FileWriter(textPath);
+            PrintWriter pw = new PrintWriter(new BufferedWriter(textFile));
+            pw.print("");
+            pw.close();
+
+            FileWriter addFile = new FileWriter(textPath, true);
+            PrintWriter addPw = new PrintWriter(new BufferedWriter(addFile));
+            // Fileクラスに読み込むファイルを指定する
+            File file = new File(filePath);
+            // ファイルが存在するか確認
+            if (file.exists()) {
+                // ファイルの読み込み
+                FileReader filereader = new FileReader(file);
+                BufferedReader bufferedReader = new BufferedReader(filereader);
+                // 条件にあう行を画面出力する
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    if (line.contains("public class") || getinClass == 1) { // class 以下を書き込む条件式
+                        addPw.println(line);
+                        getinClass = 1;
+                        if (line.contains(searchName)) { // methodがあるか無いかの確認
+                            methodJudge = "Methodあり";
+                        }
+                    }
+                }
+                if (searchName.equals("メソッド_引数なし")) {
+                    methodJudge = "引数なし";
+                } else if (searchName.equals("DBアクセス")) {
+                    methodJudge = "DBアクセス";
+                }
+                addPw.close();
+                // ファイルを閉じる
+                bufferedReader.close();
+                filereader.close();
+            } else {
+                System.out.print("ファイルは存在しません");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("指定のクラスに特定のメソッド：" + methodJudge);
+        return methodJudge;
     }
 }
