@@ -1,14 +1,13 @@
 package sequence;
 
 import org.junit.Test;
-
 import service.UserService;
 import utility.ReadPlantUml;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.Assert.assertNotNull;
 
 public class SequenceTest extends UserService {
     @Test
@@ -27,6 +26,7 @@ public class SequenceTest extends UserService {
         System.out.println();
         List<String> methods = readPlantUml.getMethods("docs/sequence/user/create.pu"); // "->"を含むものをline取得する
 
+        // ファイル(シーケンス図.pu)を読み込んで、配列に格納 /この時にファイルが存在するかのテストをしたい
         for (String method : methods) {
             String[] splitsMethods = method.split(" +"); // 空白で区切る
             List<String> previousObjects = readPlantUml.getObjects("docs/sequence/user/create.pu"); // objectのlineを取得
@@ -98,8 +98,8 @@ public class SequenceTest extends UserService {
         }
 
         //この下で行うfor文の中のifはオブジェクトの数と直前にjspが呼ばれているかを記述する
-
         // 配列に格納したものを順に取り出しソースコードと比較する
+        // テストの実行
         for (i = 0; i < flowList.length - 1; i = i + 3) {
             if (i == flowList.length - 1) {
             } else {

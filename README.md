@@ -52,7 +52,7 @@ Gradle > Gradleプロジェクトを選択しプロジェクト名を記入し�
 
 
 1コマンドで行う方法  
-`./gradlew build --scan gLA flywayMigrate`
+`./gradlew build --scan > ./docs/match/log.txt gLA flywayMigrate`
 
 
 下記にDB格納後を示す.

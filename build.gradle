@@ -145,6 +145,16 @@ test {
     testLogging.showStandardStreams = true
 }
 
+task readText doLast {
+   def text = new File('./docs/match/log.txt').getText()
+   text.eachLine { line, no ->
+   if (line.contains("https://gradle.com/s/")){
+       print line
+       new File('./docs/match/logs.txt').append(line+"\n")
+  }
+ }
+}
+
 task getLogAll doLast {
     def date = new Date()
     def format = new SimpleDateFormat('yyyy/MM/dd HH:mm:ss.SSS')
@@ -219,3 +229,4 @@ task getLogAll doLast {
         pw.close()
     }
 }
+readText.mustRunAfter build

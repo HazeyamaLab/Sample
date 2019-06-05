@@ -207,7 +207,7 @@ public class ReadPlantUml {
                 } else if (searchName.contains("get")) {
                     while ((line = bufferedReader.readLine()) != null) {
                         addPw.println(line);
-                        if (line.contains("method=\"gett\"")) {
+                        if (line.contains("method=\"get\"")) {
                             judge = "OK";
                         }
                         // else if で a hrefタグで送るものを判定したい
