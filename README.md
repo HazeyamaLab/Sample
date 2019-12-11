@@ -1,11 +1,11 @@
 ### 目的
-jsp & サーブレットでGradleプロジェクトのテンプレ
+jsp & サーブレットでGradleプロジェクトのテンプレート
 
 ### 必ずすること
 docs配下に  
-`docs/match/macth.text`を作成する(中身は空でOK).  
-`docs/match/log.text`を作成する(中身は空でOK).  
-`docs/match/logs.text`を作成する(中身は空でOK).  
+`docs/match/macth.txt`を作成する(中身は空でOK).  
+`docs/match/log.txt`を作成する(中身は空でOK).  
+`docs/match/logs.txt`を作成する(中身は空でOK).  
 
 ### 開発環境
 + java  1.8.0
@@ -54,7 +54,7 @@ Gradle > Gradleプロジェクトを選択しプロジェクト名を記入し�
 
 
 1コマンドで行う方法(URLをスキャンするには2コマンド必要)  
-`./gradlew build --scan > ./docs/match/log.txt gLA flywayMigrate`
+`./gradlew build --scan > ./docs/match/log.txt gLA flywayMigrate`  
 `./gradlew readText`
 
 

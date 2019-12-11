@@ -17,6 +17,7 @@ buildscript {
     dependencies {
         classpath group: 'com.bmuschko', name: 'gradle-tomcat-plugin', version: '2.5'
         classpath "mysql:mysql-connector-java:5.1.47"
+        classpath files('my-consistency.jar')
     }
 }
 
@@ -52,6 +53,7 @@ apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'com.bmuschko.tomcat'
 apply plugin: 'org.flywaydb.flyway'
+apply plugin: 'com.github.keychi.consistency'
 
 sourceSets {
     sourceCompatibility = 1.8
@@ -61,7 +63,6 @@ sourceSets {
 }
 
 // mainClassName = 'GradleMain.GradleMain'//Mainメソッドを持つクラスを実行するために必要
-
 // In this section you declare where to find the dependencies of your project
 repositories {
     // Use jcenter for resolving your dependencies.
@@ -148,7 +149,7 @@ test {
 task readText doLast {
    def text = new File('./docs/match/log.txt').getText()
    text.eachLine { line, no ->
-   if (line.contains("https://gradle.com/s/")){
+   if (line.contains("https://scans.gradle.com/s/")){
        print line
        new File('./docs/match/logs.txt').append(line+"\n")
   }
@@ -213,7 +214,7 @@ task getLogAll doLast {
             if (max < Integer.decode(num)) {
                 max = Integer.decode(num)
             }
-        }
+         }
         nextMax = max + 1
         File newFile = file("${dbMigrate}/V${nextMax}__insert_DB.sql")
         newFile.write('', 'UTF-8')

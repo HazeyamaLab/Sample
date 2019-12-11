@@ -3,7 +3,7 @@
 'メソッド名をが遷移に記述'
 'コード間のメソッドに引数が必要な時は(型 引数名, )の中に記述'
 'モデルの記述'
-'データベースは "database データベース名 as usersと記述する '
+'データベースは "database データベース名 as テーブル名と記述する '
 
 'タイトルを記述'
 title ユーザ作成
@@ -21,7 +21,7 @@ participant UserService as service
 participant UsersDao as dao
 database sample_gradle as users
 
-'繊維'
+'遷移'
 user -> view
 
 activate view

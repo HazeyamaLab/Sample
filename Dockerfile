@@ -5,7 +5,7 @@ ENV DB_PATH jdbc:mysql://sample_db:3306/sample_gradle?useUnicode=true&characterE
 
 WORKDIR ${APP_PATH}
 RUN mkdir -p ${APP_PATH}
-COPY . ${APP_PATH}
+COPY . ${APP_PATHc}
 
 RUN mkdir ./docs/match
 RUN touch ./docs/match/match.txt

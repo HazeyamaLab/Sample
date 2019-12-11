@@ -10,7 +10,7 @@
 	<jsp:include page="./WEB-INF/helperUIkit.html" />
 	<div class="uk-container uk-container-large">
 		<h1>Hello Gradle WebApp</h1>
-		<a href= "/Sample/Login">ログインはこちらから</a>
+		<a href= "./Login">ログインはこちらから</a>
 	</div>
 </body>
 </html>

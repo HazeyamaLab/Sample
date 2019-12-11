@@ -1,35 +1,38 @@
 package sequence;
 
-import org.junit.Test;
-import service.UserService;
-import utility.ReadPlantUml;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertNotNull;
+import org.junit.Test;
 
-public class SequenceTest extends UserService {
+import utility.ReadPlantUml;
+
+public class SequenceTest {
     @Test
     public void ユーザ作成のシーケンス図の一貫性() {
+        consistency("docs/sequence/user/create.pu"); // ファイルのパスを指定
+    }
+
+    public void consistency(String file_path) {
+
         // ファイルの読み込み
         // 返り値にオブジェクト, メソッド名, 引数(, DB名, テーブル名)を取得する(引数は確認をしたいシーケンス図のパス)
         // インス配列に入れない
         // userが関与しているものは配列に入れない
         ReadPlantUml readPlantUml = new ReadPlantUml();
+        List<String> methods = readPlantUml.getMethods(file_path); // "->"を含むものをline取得する
 
         // →方向のオブジェクト＆メソッド
         List<String> flow = new ArrayList<String>();
         String db = null;
         String table = null;
         // view -> dao(db名も取得している)までを取得
-        System.out.println();
-        List<String> methods = readPlantUml.getMethods("docs/sequence/user/create.pu"); // "->"を含むものをline取得する
-
         // ファイル(シーケンス図.pu)を読み込んで、配列に格納 /この時にファイルが存在するかのテストをしたい
         for (String method : methods) {
             String[] splitsMethods = method.split(" +"); // 空白で区切る
-            List<String> previousObjects = readPlantUml.getObjects("docs/sequence/user/create.pu"); // objectのlineを取得
+            List<String> previousObjects = readPlantUml.getObjects(file_path); // objectのlineを取得
             loop: for (String object : previousObjects) {
                 String[] splitsObjects = object.split(" +"); // 空白で区切る
                 for (int i = 0; i < splitsObjects.length; i++) {
@@ -55,7 +58,7 @@ public class SequenceTest extends UserService {
                                 flow.add(splitsObjects[i - 1]); // asの前のオブジェクトをリストに追加
                                 flow.add("->"); // asの前のオブジェクトをリストに追加
                                 flow.add("DBアクセス"); // asの前のオブジェクトをリストに追加
-                                String dbNameLine = readPlantUml.getDbName("docs/sequence/user/create.pu"); // "database"が存在するlineを取得する
+                                String dbNameLine = readPlantUml.getDbName(file_path); // "database"が存在するlineを取得する
                                 String[] dbNames = dbNameLine.split(" +"); // 空白で区切るs
                                 db = dbNames[1]; // DB名
                                 table = dbNames[3]; // テーブル
@@ -97,7 +100,7 @@ public class SequenceTest extends UserService {
             i = i + 1;
         }
 
-        //この下で行うfor文の中のifはオブジェクトの数と直前にjspが呼ばれているかを記述する
+        // この下で行うfor文の中のifはオブジェクトの数と直前にjspが呼ばれているかを記述する
         // 配列に格納したものを順に取り出しソースコードと比較する
         // テストの実行
         for (i = 0; i < flowList.length - 1; i = i + 3) {
@@ -110,17 +113,20 @@ public class SequenceTest extends UserService {
                     anotation.add(judge);
                     preJsp++; // 直前がJSPである判定をするために1にする
                     jspCount++; // jspが呼ばれた回数(anotationの数)を1増やす
-                }else if(flowList[i].contains(".jsp") && flowList[i + 1].equals("<-")){ //jspに帰ってくる
-                    System.out.println("jspに帰ってくる");
-                }else if (preJsp == 1) {// 直前にjspが呼ばれている場合
+                } else if (flowList[i].contains(".jsp") && flowList[i + 1].equals("<-")) { // jspに帰ってくる
+                    System.out.println("jspに帰ってきて成功。");
+                } else if (preJsp == 1) {// 直前にjspが呼ばれている場合
                     String checkAnotation = anotation.get(jspCount);
-                    String[] judge = readPlantUml.searchJavaonJsp(flowList[i], "controller/users", flowList[i + 2], checkAnotation);
+                    String[] judge = readPlantUml.searchJavaonJsp(flowList[i], "controller/users", flowList[i + 2],
+                            checkAnotation);
                     assertNotNull(judge[0]);
                     assertNotNull(judge[1]);
                     preJsp = 0;// 直前がjspでなくなるので0に変更する
-                } else if (flowList[i].contains("Service")) { // 直前にはjavaのコードが呼ばれている場合(Service)
-                    String judge = readPlantUml.searchJava(flowList[i], "service", flowList[i + 2]);
+                    // (+)から(/+)まではクラスで存在するものを全て記述する. (else if区を増やす)
+                } else if (flowList[i].contains("Service")) { // 直前にはjavaのコードが呼ばれている場合(Service:クラス名)
+                    String judge = readPlantUml.searchJava(flowList[i], "service", flowList[i + 2]); // ファイルが存在するはずのディレクトリを指定(java/以下)
                     assertNotNull(judge);
+                    // (/+)
                 } else { // 直前にはJavaのコードが呼ばれている場合(dao)
                     String judge = readPlantUml.searchDaoJava(flowList[i], "dao", flowList[i + 2]);
                     assertNotNull(judge);
