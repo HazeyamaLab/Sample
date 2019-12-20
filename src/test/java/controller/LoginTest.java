@@ -14,7 +14,17 @@ public class LoginTest {
         user.setName("");
         user.setPass("pass");
         String expected = "ユーザuserNameは必須項目です.";
-        String actual = user.getErrorMessage();
+        String actual = user.getErrorMessage(user);
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void userNameがある時にnullを取得できる() {
+        User user = new User();
+        user.setName("dfghjkuytrfghjkoi");
+        user.setPass("pass");
+        String expected = null;
+        String actual = user.getErrorMessage(user);
         assertThat(actual, is(expected));
     }
 

@@ -12,7 +12,7 @@
 |No.|項目名|型|長さ|主キー|NULL|制約|概要|備考|
 |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 |1|id|int|11|Y|NO| AutoIncrement,Unique|カテゴリのID|なし|
-|2|name|varchar|64|なし|NO|Unique|ユーザ名|なし|
+|2|names|varchar|64|なし|NO|Unique|ユーザ名|なし|
 |3|pass|varchar|64|なし|NO|なし|パスワード|なし|
 
 ### test_reports

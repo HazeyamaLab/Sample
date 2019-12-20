@@ -149,7 +149,7 @@ test {
 task readText doLast {
    def text = new File('./docs/match/log.txt').getText()
    text.eachLine { line, no ->
-   if (line.contains("https://scans.gradle.com/s/")){
+   if (line.contains("https://")){
        print line
        new File('./docs/match/logs.txt').append(line+"\n")
   }
@@ -160,7 +160,6 @@ task getLogAll doLast {
     def date = new Date()
     def format = new SimpleDateFormat('yyyy/MM/dd HH:mm:ss.SSS')
     def dateTime = format.format(date)
-
 
     File dir = new File("${testReport}")
     File[] files = dir.listFiles()
@@ -230,4 +229,5 @@ task getLogAll doLast {
         pw.close()
     }
 }
+
 readText.mustRunAfter build

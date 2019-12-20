@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 public class UsersDao extends DriverAccessor {
 
     // CRUDのSQL文
-    public static final String getById = "select * from user where user_id = ?"; // IDを引数にユーザを取得するSQL文
+    public static final String getById = "select * from users where user_id = ?"; // IDを引数にユーザを取得するSQL文
     public static final String getByName = "select * from users where name = ?"; // ユーザ名を引数にユーザを取得するSQL文
     public static final String create = "insert into users(name,pass)values(?,?)"; // ユーザ作成のSQL文
     public static final String update = "update users set name = ?,pass = ? where user_id = ?"; // ユーザ情報更新のSQL文

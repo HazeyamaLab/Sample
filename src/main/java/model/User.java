@@ -5,18 +5,18 @@ public class User {
     private String name;
     private String pass;
 
-    //空のコンストラクタ
+    // 空のコンストラクタ
     public void user() {
     }
 
-    //コンストラクタ
+    // コンストラクタ
     public void user(int id, String name, String pass) {
         this.id = id;
         this.name = name;
         this.pass = pass;
     }
 
-    //getter & setter
+    // getter & setter
 
     public int getId() {
         return id;
@@ -43,8 +43,11 @@ public class User {
     }
 
     //
-    public String getErrorMessage() {
-        String actual = "ユーザuserNameは必須項目です.";
-        return actual;
+    public String getErrorMessage(User user) {
+        if (user.getName() == "") {
+            String actual = "ユーザuserNameは必須項目です.";
+            return actual;
+        }
+        return null;
     }
 }
