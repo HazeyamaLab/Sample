@@ -12,7 +12,7 @@ public class DriverAccessor {
     // 自分のユーザ名
     private final static String USER_NAME = "root";
     //自分のmysqlのパスワード
-    private final static String PASSWORD = "";
+    private final static String PASSWORD = "root";
 
     public Connection createConnection() {
         String DRIVER_URL = System.getenv("DB_PATH");
