@@ -35,8 +35,7 @@ public class Create extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         try {
-            // String userName = request.getParameter("name");
-            String userName = "Name";
+            String userName = request.getParameter("name");
             String password = request.getParameter("pass");
 
             User user  = new User();
@@ -48,7 +47,6 @@ public class Create extends HttpServlet {
             request.setAttribute("user", user);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
             dispatcher.forward(request, response);
-
             
         } catch (Exception e) {
             // TODO: handle exception

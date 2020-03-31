@@ -15,6 +15,14 @@ services:
     volumes:
     - "./init:/docker-entrypoint-initdb.d"
 
+  adminer:
+    image: adminer:4.7
+    restart: always
+    ports:
+      - 8000:8080
+    depends_on:
+      - sample_db
+
 networks:
   default:
     external:

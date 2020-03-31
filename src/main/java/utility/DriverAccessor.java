@@ -5,10 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DriverAccessor {
-    // mysql5.7
-    //private final static String DRIVER_NAME = "com.mysql.jdbc.Driver";
-    // mysql8.0
-    private final static String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
+
+    //private final static String DRIVER_NAME = "com.mysql.jdbc.Driver"; // mysql5.7
+    private final static String DRIVER_NAME = "com.mysql.cj.jdbc.Driver"; // mysql8.0
     // 自分のユーザ名
     private final static String USER_NAME = "root";
     //自分のmysqlのパスワード
@@ -20,8 +19,8 @@ public class DriverAccessor {
             System.out.println("リモート");
             DRIVER_URL = "jdbc:mysql://localhost:3399/sample_gradle?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9:00&rewriteBatchedStatements=true";
         }else{
-            DRIVER_URL = "jdbc:mysql://localhost:3306/sample_gradle?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9:00&rewriteBatchedStatements=true";
             System.out.println("ローカル");
+            // DRIVER_URL = "jdbc:mysql://localhost:3399/sample_gradle?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9:00&rewriteBatchedStatements=true";
         }
         try {
             Class.forName(DRIVER_NAME);
