@@ -17,10 +17,10 @@ public class DriverAccessor {
         String DRIVER_URL = System.getenv("DB_PATH");
         if(DRIVER_URL != null){
             System.out.println("リモート");
-            DRIVER_URL = "jdbc:mysql://localhost:3399/sample_gradle?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9:00&rewriteBatchedStatements=true";
+            // DRIVER_URL = "jdbc:mysql://localhost:3399/sample_gradle?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9:00&rewriteBatchedStatements=true";
         }else{
             System.out.println("ローカル");
-            // DRIVER_URL = "jdbc:mysql://localhost:3399/sample_gradle?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9:00&rewriteBatchedStatements=true";
+            DRIVER_URL = "jdbc:mysql://localhost:3399/sample_gradle?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9:00&rewriteBatchedStatements=true";
         }
         try {
             Class.forName(DRIVER_NAME);
